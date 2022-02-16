@@ -1,11 +1,22 @@
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const MovieDetails = () => {
   const params = useParams();
+  const id = params.movieId;
 
   const [singleMovieDetail, setSingleMovieDetail] = useState(null);
+
+  const fetchMovieDetails = () => {
+    const OMDB_URL = "https://www.omdbapi.com/?apikey=24ad60e9";
+
+    fetch(OMDB_URL + id)
+      .then((resp) => resp.json())
+      .then((data) => console.log("this is the data" + data));
+  };
+
+  useEffect(() => fetchMovieDetails, []);
   return (
     <Container>
       <Row>
